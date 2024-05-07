@@ -1,15 +1,8 @@
-import { utapi } from "@/app/uploadthing";
 import Image from "next/image";
+import { getImages } from "./uploadthing";
 
 // We don't have uploadthing secrets at build time
 export const dynamic = 'force-dynamic'
-
-const getImages = async () => {
-  "use server";
-  const { files } = await utapi.listFiles();
-  const { data } = await utapi.getFileUrls(files.map((file) => file.key));
-  return data;
-};
 
 export default async function Home() {
   const images = await getImages();
